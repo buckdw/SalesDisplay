@@ -23,7 +23,6 @@ FUNCTION_SPEED_1 = '<FX>'
 FUNCTION_SPEED_2 = '<FY>'
 FUNCTION_SPEED_3 = '<FZ>'
 
-
 def checksum(buffer):
     checksum_i = int(0)
 
