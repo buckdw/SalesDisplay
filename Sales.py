@@ -35,22 +35,34 @@ def checksum(buffer):
 def link_pages(pages):
 
     def format_checksum_buffer(pages):
-        checksum_buffer = '<TA>00010100009912302359{pages}'.format(pages=pages)
+        checksum_buffer = '<TA>00010100009912302359{pages}'.format(
+            pages=pages
+        )
         return checksum_buffer
 
     checksum_request = checksum(format_checksum_buffer(pages))
-    display_buffer = '<ID00>{checksum_buffer}{checksum:02X}<E>\n\r'.format(checksum_buffer=format_checksum_buffer(pages), checksum=checksum_request)
+    display_buffer = '<ID00>{checksum_buffer}{checksum:02X}<E>\n\r'.format(
+        checksum_buffer=format_checksum_buffer(pages)
+        , checksum=checksum_request
+    )
     return display_buffer
 
 
 def display_page(page, color, request):
 
     def format_checksum_buffer(page, color, request):
-        checksum_buffer = '<L1>{page}<FE><MA><WC><FE>{color}{request}'.format(page=page, color=color, request=request)
+        checksum_buffer = '<L1>{page}<FE><MA><WC><FE>{color}{request}'.format(
+            page=page
+            , color=color
+            , request=request
+        )
         return checksum_buffer
 
     checksum_request = checksum(format_checksum_buffer(page, color, request))
-    display_buffer = '<ID00>{checksum_buffer}{checksum:02x}<E>\n\r'.format(checksum_buffer=format_checksum_buffer(page, color, request), checksum=checksum_request)
+    display_buffer = '<ID00>{checksum_buffer}{checksum:02x}<E>\n\r'.format(
+        checksum_buffer=format_checksum_buffer(page, color, request)
+        , checksum=checksum_request
+    )
     return display_buffer
 
 
