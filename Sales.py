@@ -31,7 +31,10 @@ def checksum(buffer):
         checksum_i ^= element_i
     return checksum_i
 
-
+#
+#   link_pages:
+#       tell Vellemann Display which programmmed pages to show
+#
 def link_pages(pages):
 
     def format_checksum_buffer(pages):
@@ -47,7 +50,10 @@ def link_pages(pages):
     )
     return display_buffer
 
-
+#
+#   display_page
+#       define a Page within Vellemann Display
+#
 def display_page(page, color, request):
 
     def format_checksum_buffer(page, color, request):
@@ -67,22 +73,22 @@ def display_page(page, color, request):
 
 
 if __name__ == "__main__":
-    ser = serial.Serial('/dev/cu.usbserial')
+    serial_connection = serial.Serial('/dev/cu.usbserial')
 
-    line = display_page(PAGE_A, COLOR_RED, FUNCTION_SPEED_1)
+    line = display_page(PAGE_A, COLOR_AMBER, FUNCTION_SPEED_1)
     print(line)
-    ser.write(line.encode())
+    serial_connection.write(line.encode())
 
-    line = display_page(PAGE_A, COLOR_RED, 'SokoZuur: E12.789')
+    line = display_page(PAGE_A, COLOR_AMBER, 'SokoZuur: E12.789')
     print(line)
-    ser.write(line.encode())
+    serial_connection.write(line.encode())
 
-    line = display_page(PAGE_B, COLOR_RED, 'Buzl: E41.000')
+    line = display_page(PAGE_B, COLOR_GREEN, 'Buzl: E41.000')
     print(line)
-    ser.write(line.encode())
+    serial_connection.write(line.encode())
 
     line = link_pages('AB')
     print(line)
-    ser.write(line.encode())
+    serial_connection.write(line.encode())
 
-    ser.close()
+    serial_connection.close()
