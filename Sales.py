@@ -15,8 +15,8 @@ PAGE_L = '<PL>'
 PAGE_M = '<PM>'
 
 COLOR_RED = '<CA>'
-COLOR_GREEN = '<CD>'
-COLOR_AMBER = '<CG>'
+COLOR_GREEN = '<CF>'
+COLOR_AMBER = '<CI>'
 COLOR_RYG = '<CR>'
 
 FUNCTION_SPEED_1 = '<FX>'
@@ -30,6 +30,11 @@ def checksum(buffer):
         element_i = ord(element)
         checksum_i ^= element_i
     return checksum_i
+
+
+def init():
+    display_buffer = '<ID>01<E>\n\r'
+    return display_buffer
 
 #
 #   link_pages:
@@ -73,21 +78,35 @@ def display_page(page, color, request):
 
 
 if __name__ == "__main__":
-    serial_connection = serial.Serial('/dev/cu.usbserial')
+    serial_connection = serial.Serial('/dev/cu.usbserial'
+                                      , baudrate='9600'
+                                      , parity=serial.PARITY_NONE
+                                      , stopbits=1
+                                      , bytesize=serial.EIGHTBITS
+                                      , xonxoff=True
+                                      )
 
-    line = display_page(PAGE_A, COLOR_AMBER, FUNCTION_SPEED_1)
+    line = init()
     print(line)
     serial_connection.write(line.encode())
 
-    line = display_page(PAGE_A, COLOR_AMBER, 'SokoZuur: E12.789')
+    line = display_page(PAGE_A, COLOR_GREEN, 'SokoZuur: E12.789')
     print(line)
     serial_connection.write(line.encode())
 
-    line = display_page(PAGE_B, COLOR_GREEN, 'Buzl: E41.000')
+    line = display_page(PAGE_B, COLOR_RED, 'Buzl: E41.000')
     print(line)
     serial_connection.write(line.encode())
 
-    line = link_pages('AB')
+    line = display_page(PAGE_C, COLOR_RED, 'Zeug: E41.000')
+    print(line)
+    serial_connection.write(line.encode())
+
+    line = display_page(PAGE_D, COLOR_RED, 'Zeug: E41.000')
+    print(line)
+    serial_connection.write(line.encode())
+
+    line = link_pages('ABCD')
     print(line)
     serial_connection.write(line.encode())
 
