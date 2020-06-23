@@ -1,12 +1,15 @@
 import serial
+import time
 
 
+ID00 = '<ID00>'
 ID01 = '<ID01>'
 ID02 = '<ID02>'
 
 WAIT_1S = '<WB>'
 WAIT_2S = '<WC>'
 WAIT_3S = '<WD>'
+WAIT_4S = '<WE>'
 
 PAGE_A = '<PA>'
 PAGE_B = '<PB>'
@@ -42,12 +45,28 @@ def checksum(buffer):
 
 
 def init_id(id_number):
-    display_buffer = '<ID>{id_number}<E>\n\r'.format(id_number=id_number)
+    display_buffer = '<ID>{id_number}<E>'.format(id_number=id_number)
     return display_buffer
 
 #
-#   link_pages:
-#       tell Vellemann Display which programmmed pages to show
+#   delete_all:
+#
+def delete_all(id):
+
+    def data_packet():
+        checksum_buffer = '<D*>'
+        return checksum_buffer
+
+    cs = checksum(data_packet())
+    display_buffer = '{id}{data_packet}{cs:02X}<E>'.format(
+        id=id
+        , data_packet=data_packet()
+        , cs=cs
+    )
+    return display_buffer
+
+#
+#   delete_page:
 #
 def delete_page(id, page_id, line):
 
@@ -56,10 +75,10 @@ def delete_page(id, page_id, line):
         return checksum_buffer
 
     cs = checksum(data_packet(page_id, line))
-    display_buffer = '{id}{checksum_buffer}{checksum:02X}<E>\n\r'.format(
+    display_buffer = '{id}{data_packet}{cs:02X}<E>'.format(
         id=id
-        , checksum_buffer=data_packet(page_id, line)
-        , checksum=cs
+        , data_packet=data_packet(page_id, line)
+        , cs=cs
     )
     return display_buffer
 
@@ -67,16 +86,17 @@ def delete_page(id, page_id, line):
 #   link_pages:
 #       tell Vellemann Display which programmmed pages to show
 #
-def link_pages(pages):
+def link_pages(id, pages):
 
     def data_packet(pages):
-        checksum_buffer = '<TA>00010100009912302359{pages}'.format(pages=pages)
+        checksum_buffer = '<TA>00010100009912312359{pages}'.format(pages=pages)
         return checksum_buffer
 
     cs = checksum(data_packet(pages))
-    display_buffer = '<ID01>{checksum_buffer}{checksum:02X}<E>\n\r'.format(
-        checksum_buffer=data_packet(pages)
-        , checksum=cs
+    display_buffer = '{id}{data_packet}{cs:02X}<E>'.format(
+        id=id
+        , data_packet=data_packet(pages)
+        , cs=cs
     )
     return display_buffer
 
@@ -97,10 +117,10 @@ def send_page(id, line_id, page, color, wait, request):
         return checksum_buffer
 
     cs = checksum(data_packet(line_id, page, color, wait, request))
-    display_buffer = '{id}{checksum_buffer}{checksum:02x}<E>\n\r'.format(
+    display_buffer = '{id}{data_packet}{cs:02x}<E>'.format(
         id=id
-        , checksum_buffer=data_packet(line_id, page, color, wait, request)
-        , checksum=cs
+        , data_packet=data_packet(line_id, page, color, wait, request)
+        , cs=cs
     )
     return display_buffer
 
@@ -112,35 +132,33 @@ if __name__ == "__main__":
                                       , stopbits=1
                                       , bytesize=serial.EIGHTBITS
                                       , xonxoff=True
+                                      , rtscts=True
+                                      , dsrdtr=True
                                       )
 
-    line = init_id('01')
+    line = send_page(ID02, 1, PAGE_A, COLOR_RED, WAIT_4S, 'SokoZuur: E88.000')
     print(line)
     serial_connection.write(line.encode())
+    time.sleep(1)
 
- #   for i in range(8):
- #       line = delete_page(ID01, 'C', i+1)
- #       print(line)
- #       serial_connection.write(line.encode())
-
-    line = send_page(ID01, 1, PAGE_A, COLOR_GREEN, WAIT_3S, 'SokoZuur: E12.789')
+    line = send_page(ID02, 1, PAGE_B, COLOR_RED, WAIT_4S, 'Buzl: E41.000')
     print(line)
     serial_connection.write(line.encode())
+    time.sleep(1)
 
-    line = send_page(ID01, 2, PAGE_A, COLOR_RED, WAIT_3S, 'Buzl: E41.000')
+    line = send_page(ID02, 1, PAGE_C, COLOR_RED, WAIT_4S, 'Zeug: E41.000')
     print(line)
     serial_connection.write(line.encode())
+    time.sleep(1)
 
-    line = send_page(ID01, 3, PAGE_A, COLOR_RED, WAIT_3S, 'Zeug: E41.000')
+    line = send_page(ID02, 1, PAGE_D, COLOR_RED, WAIT_4S, 'Zeug: E41.000')
     print(line)
     serial_connection.write(line.encode())
+    time.sleep(1)
 
-    line = send_page(ID01, 4, PAGE_A, COLOR_RED, WAIT_3S, 'Zeug: E41.000')
+    line = link_pages(ID02, 'ABCD')
     print(line)
     serial_connection.write(line.encode())
-
-    line = link_pages('A')
-    print(line)
-    serial_connection.write(line.encode())
+    time.sleep(1)
 
     serial_connection.close()
