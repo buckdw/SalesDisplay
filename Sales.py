@@ -40,7 +40,7 @@ if __name__ == "__main__":
                      , 'B'
                      , COLOR_AMBER
                      , WAIT_3S
-                     , 'Noi en Pui'
+                     , 'Noi, Pui en Gino'
                      )
     print(line)
     time.sleep(3)
@@ -112,7 +112,18 @@ if __name__ == "__main__":
     time.sleep(3)
     serial_connection.write(line.encode())
 
-    line = link_pages(ID00, 'ABCDEFGH')
+    line = send_page(ID00
+                     , 1
+                     , 'I'
+                     , COLOR_GREEN
+                     , WAIT_3S
+                     , '60 min + toksen: EUR 70.00'
+                     )
+    print(line)
+    time.sleep(3)
+    serial_connection.write(line.encode())
+
+    line = link_pages(ID00, 'ABCDEFGHI')
     print(line)
     time.sleep(3)
     serial_connection.write(line.encode())
