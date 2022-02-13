@@ -1,10 +1,21 @@
 import serial
+import serial.tools.list_ports
 import time
 
 from velleman import *
 
+def find_serial_port(filter):
+    ports = serial.tools.list_ports.comports()
+    for port, desc, hwid in sorted(ports):
+        usb_port = str(port)
+        if filter in usb_port:
+            return usb_port
+    return None
+
 if __name__ == "__main__":
-    serial_connection = serial.Serial('/dev/cu.usbserial-1410'
+    port = find_serial_port("cu.usb")
+    print(port)
+    serial_connection = serial.Serial(port
                                       , baudrate='9600'
                                       , parity=serial.PARITY_NONE
                                       , stopbits=1
@@ -40,7 +51,7 @@ if __name__ == "__main__":
                      , 'B'
                      , COLOR_AMBER
                      , WAIT_3S
-                     , 'Noi, Pui en Gino'
+                     , 'May en Noi'
                      )
     print(line)
     time.sleep(3)
