@@ -24,16 +24,6 @@ if __name__ == "__main__":
                                       , rtscts=False
                                       , dsrdtr=False
                                       )
-#  line = send_page(ID00
-#                   , 1
-#                   , 'A'
-#                   , COLOR_RED
-#                   , WAIT_3S
-#                   , FUNCTION_SPEED_1
-#                   )
-#  print(line)
-#  time.sleep(3)
-#  serial_connection.write(line.encode())
 
     line = send_page(ID00
                      , 1
