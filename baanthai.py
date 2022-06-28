@@ -41,7 +41,7 @@ if __name__ == "__main__":
                      , 'B'
                      , COLOR_AMBER
                      , WAIT_3S
-                     , 'May en Noi'
+                     , 'Pui en Noi'
                      )
     print(line)
     time.sleep(3)
