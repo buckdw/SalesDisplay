@@ -41,7 +41,7 @@ if __name__ == "__main__":
                      , 'B'
                      , COLOR_AMBER
                      , WAIT_3S
-                     , 'Pui en Noi'
+                     , 'Pui, Noi en Tui'
                      )
     print(line)
     time.sleep(3)
@@ -107,7 +107,7 @@ if __name__ == "__main__":
                      , 'H'
                      , COLOR_GREEN
                      , WAIT_3S
-                     , '120 min: EUR 105.00'
+                     , '120 min: EUR 110.00'
                      )
     print(line)
     time.sleep(3)
