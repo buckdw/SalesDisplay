@@ -52,7 +52,7 @@ if __name__ == "__main__":
                      , 'C'
                      , COLOR_AMBER
                      , WAIT_3S
-                     , 'Tel: 06 1086 0150'
+                     , 'Tel: 06 1006 3765'
                      )
     print(line)
     time.sleep(3)
