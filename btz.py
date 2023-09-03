@@ -39,7 +39,7 @@ if __name__ == "__main__":
     line = send_page(ID00
                      , 1
                      , 'B'
-                     , COLOR_AMBER
+                     , COLOR_RED
                      , WAIT_3S
                      , 'Gino, Noi'
                      )
@@ -50,7 +50,7 @@ if __name__ == "__main__":
     line = send_page(ID00
                      , 1
                      , 'C'
-                     , COLOR_AMBER
+                     , COLOR_RED
                      , WAIT_3S
                      , 'Tel: 06 1086 0150'
                      )
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     line = send_page(ID00
                      , 1
                      , 'D'
-                     , COLOR_GREEN
+                     , COLOR_RED
                      , WAIT_3S
                      , '30 min: EUR 35.00'
                      )
@@ -72,7 +72,7 @@ if __name__ == "__main__":
     line = send_page(ID00
                      , 1
                      , 'E'
-                     , COLOR_GREEN
+                     , COLOR_RED
                      , WAIT_3S
                      , '45 min: EUR 50.00'
                      )
@@ -83,7 +83,7 @@ if __name__ == "__main__":
     line = send_page(ID00
                      , 1
                      , 'F'
-                     , COLOR_GREEN
+                     , COLOR_RED
                      , WAIT_3S
                      , '60 min: EUR 60.00'
                      )
@@ -94,7 +94,7 @@ if __name__ == "__main__":
     line = send_page(ID00
                      , 1
                      , 'G'
-                     , COLOR_GREEN
+                     , COLOR_RED
                      , WAIT_3S
                      , '90 min: EUR 85.00'
                      )
@@ -105,7 +105,7 @@ if __name__ == "__main__":
     line = send_page(ID00
                      , 1
                      , 'H'
-                     , COLOR_GREEN
+                     , COLOR_RED
                      , WAIT_3S
                      , '120 min: EUR 110.00'
                      )
@@ -116,7 +116,7 @@ if __name__ == "__main__":
     line = send_page(ID00
                      , 1
                      , 'I'
-                     , COLOR_GREEN
+                     , COLOR_RED
                      , WAIT_3S
                      , '60 min + toksen: EUR 70.00'
                      )
